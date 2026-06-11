@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { EMAIL, FULL_NAME } from '../consts';
+
+/* Rascunho LGPD (versão completa e revisão: Marco 2, item 6 do backlog). */
+---
+
+<BaseLayout
+  title="Política de privacidade · Débora Matos — Psicóloga"
+  description="Como este site trata seus dados pessoais, em conformidade com a LGPD."
+>
+  <section class="section">
+    <div class="container privacidade">
+      <h1>Política de privacidade</h1>
+      <p class="section__intro">Última atualização: junho de 2026 · Rascunho em revisão</p>
+
+      <h2>Quais dados este site coleta?</h2>
+      <p>
+        O mínimo possível. Este site não possui formulários, não usa cookies e não exige cadastro.
+        Ao clicar no botão de WhatsApp, você é direcionado ao aplicativo, e a conversa passa a ser
+        regida pela política de privacidade do próprio WhatsApp.
+      </p>
+
+      <h2>Estatísticas de acesso</h2>
+      <p>
+        Utilizamos uma ferramenta de análise de audiência sem cookies, que não identifica
+        visitantes individualmente e não cria perfis de navegação. Os dados são agregados e servem
+        apenas para entender o uso geral do site.
+      </p>
+
+      <h2>Sigilo profissional</h2>
+      <p>
+        Informações compartilhadas em atendimento psicológico são protegidas pelo sigilo
+        profissional, conforme o Código de Ética Profissional do Psicólogo — uma proteção ainda
+        mais rigorosa que a LGPD.
+      </p>
+
+      <h2>Seus direitos e contato</h2>
+      <p>
+        Nos termos da Lei Geral de Proteção de Dados (Lei nº 13.709/2018), você pode solicitar
+        informações sobre seus dados a qualquer momento. Fale com {FULL_NAME} pelo e-mail
+        <a href={`mailto:${EMAIL}`}>{EMAIL}</a>.
+      </p>
+
+      <p><a href="/">← Voltar ao início</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .privacidade h2 {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-2);
+    font-size: var(--fs-h3);
+  }
+</style>

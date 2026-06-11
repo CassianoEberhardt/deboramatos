@@ -1,0 +1,88 @@
+---
+import { CRP, EMAIL, FULL_NAME, INSTAGRAM_URL } from '../consts';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" id="contato-info">
+  <div class="container" data-parallax="0.05">
+    <div class="footer__grid">
+      <div>
+        <p class="footer__name">{FULL_NAME}</p>
+        <p class="footer__crp">{CRP}</p>
+        <p>Psicoterapia online · Terapia Cognitivo-Comportamental (TCC)</p>
+      </div>
+      <ul class="footer__links">
+        <li><a href={`mailto:${EMAIL}`}>{EMAIL}</a></li>
+        <li><a href={INSTAGRAM_URL} target="_blank" rel="noopener">Instagram @matosdebora</a></li>
+        <li><a href="/privacidade">Política de privacidade</a></li>
+      </ul>
+    </div>
+    <p class="footer__emergency">
+      Este site não oferece atendimento de emergência. Em caso de crise, ligue para o
+      <strong>CVV — 188</strong> (gratuito, 24 horas) ou procure o serviço de emergência mais
+      próximo.
+    </p>
+    <p class="footer__copy">© {year} {FULL_NAME}. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    overflow: clip; /* o conteúdo tem parallax; não pode vazar do fundo escuro */
+    background: var(--brand-900);
+    color: var(--brand-100);
+    padding-block: var(--space-12);
+    font-size: var(--fs-small);
+  }
+
+  .footer__grid {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .footer__name {
+    font-family: var(--font-display);
+    font-size: var(--fs-h3);
+    color: #fff;
+  }
+
+  .footer__crp {
+    color: var(--brand-300);
+    margin-bottom: var(--space-2);
+  }
+
+  .footer__links {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .footer a {
+    color: var(--brand-100);
+  }
+
+  .footer a:hover {
+    color: #fff;
+  }
+
+  .footer__emergency {
+    margin-top: var(--space-8);
+    padding: var(--space-4);
+    border: 1px solid var(--brand-700);
+    border-radius: var(--radius-md);
+    max-width: none;
+  }
+
+  .footer__copy {
+    margin-top: var(--space-6);
+    color: var(--brand-300);
+  }
+</style>

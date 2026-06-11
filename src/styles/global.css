@@ -1,0 +1,628 @@
+@import './tokens.css';
+
+/* ---------- Reset e base ---------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+html {
+  scroll-padding-top: 5rem; /* compensa o header fixo nas âncoras */
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Textura de grão sutil (toque artesanal) sobre toda a página */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  pointer-events: none;
+  opacity: 0.045;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: var(--lh-display);
+  color: var(--brand-900);
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  font-weight: 600;
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  font-weight: 600;
+}
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--action-600);
+}
+
+a:hover {
+  color: var(--action-700);
+}
+
+:focus-visible {
+  outline: 3px solid var(--action-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* ---------- Utilitários ---------- */
+
+.container {
+  width: min(100% - 2 * var(--space-6), 72rem);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-4);
+  z-index: 100;
+  padding: var(--space-3) var(--space-6);
+  background: var(--action-600);
+  color: #fff;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  top: var(--space-4);
+  color: #fff;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Botões ---------- */
+
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  font-size: var(--fs-body);
+  text-decoration: none;
+  transition:
+    background-color 200ms ease,
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+
+/* Brilho que atravessa o botão no hover */
+.btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.35) 50%,
+    transparent 60%
+  );
+  translate: -130% 0;
+  transition: translate 500ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn:hover::after {
+  translate: 130% 0;
+}
+
+.btn:active {
+  transform: translateY(0) scale(0.96);
+  box-shadow: var(--shadow-sm);
+  transition-duration: 80ms;
+}
+
+.btn--primary {
+  background: var(--action-600);
+  color: #fff;
+}
+
+.btn--primary:hover {
+  background: var(--action-700);
+  color: #fff;
+}
+
+.btn--whatsapp {
+  background: var(--whatsapp-dark);
+  color: #fff;
+}
+
+.btn--whatsapp:hover {
+  background: var(--support-700);
+  color: #fff;
+}
+
+/* ---------- Seções ---------- */
+
+.section {
+  position: relative;
+  overflow: clip;
+  padding-block: var(--space-16);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: var(--space-24);
+  }
+}
+
+.section--alt {
+  background: var(--surface);
+}
+
+.section__intro {
+  margin-top: var(--space-4);
+  color: var(--text-muted);
+}
+
+/* Título de seção com traço ondulado desenhado à mão */
+.section-title::after {
+  content: '';
+  display: block;
+  width: 84px;
+  height: 10px;
+  margin-top: var(--space-3);
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='84' height='10' viewBox='0 0 84 10'%3E%3Cpath d='M2 6.5C10 2 17 2 25 6.5s15 4.5 23 0 15-4.5 23 0 9 3 11-1' fill='none' stroke='%23D99570' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E")
+    no-repeat;
+}
+
+/* Imagem de fundo opcional por seção (definir --section-bg no elemento):
+   <section class="section section--media" style="--section-bg: url('/images/foto.jpg')"> */
+.section--media::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--section-bg, none);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Véu claro por cima da imagem para manter o contraste AA do texto */
+.section--media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(rgba(250, 246, 242, 0.93), rgba(250, 246, 242, 0.88));
+}
+
+/* ---------- Fundo vivo: formas orgânicas flutuantes ---------- */
+
+.blob-field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blob-wrap {
+  position: absolute;
+  will-change: transform;
+}
+
+.blob {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  filter: blur(48px);
+  opacity: 0.6;
+  animation: blob-float var(--dur, 18s) ease-in-out infinite alternate;
+}
+
+.blob--brand {
+  background: var(--brand-100);
+}
+
+.blob--brand-strong {
+  background: var(--brand-300);
+  opacity: 0.35;
+}
+
+.blob--support {
+  background: var(--support-100);
+}
+
+.blob--action {
+  background: var(--action-100);
+  opacity: 0.5;
+}
+
+@keyframes blob-float {
+  from {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  to {
+    transform: translate3d(5%, 7%, 0) rotate(10deg) scale(1.1);
+  }
+}
+
+/* ---------- Ícones pulsantes ---------- */
+
+.icon-pulse {
+  color: var(--support-600);
+  animation: icon-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%,
+  100% {
+    color: var(--support-600);
+    transform: scale(1);
+  }
+  50% {
+    color: var(--support-400);
+    transform: scale(1.08);
+  }
+}
+
+/* ---------- Cards e grades ---------- */
+
+/* Hover usa rotate/scale (e não transform/translate) para compor com o
+   parallax (transform inline) e com as entradas no scroll (translate) */
+
+.card-grid {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+
+@media (min-width: 640px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid--4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.card {
+  padding: var(--space-6);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition:
+    rotate 250ms ease,
+    scale 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.card:hover {
+  rotate: -0.6deg;
+  scale: 1.03;
+  box-shadow: var(--shadow-md);
+}
+
+.card:nth-child(even):hover {
+  rotate: 0.6deg;
+}
+
+.section--alt .card {
+  background: var(--bg);
+}
+
+.card__icon {
+  margin-bottom: var(--space-3);
+}
+
+.card h3 {
+  margin-bottom: var(--space-2);
+}
+
+.card p {
+  font-size: var(--fs-small);
+  color: var(--text-muted);
+}
+
+/* ---------- Listas especiais ---------- */
+
+.steps {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+  padding-left: 0;
+  list-style: none;
+  counter-reset: passo;
+}
+
+.steps li {
+  counter-increment: passo;
+  position: relative;
+  padding-left: var(--space-12);
+}
+
+.steps li::before {
+  content: counter(passo);
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  background: var(--brand-100);
+  color: var(--brand-700);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-left: 0;
+  list-style: none;
+}
+
+.chips li {
+  padding: var(--space-2) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-small);
+  transition:
+    rotate 200ms ease,
+    scale 200ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.chips li:hover {
+  rotate: -1.5deg;
+  scale: 1.06;
+  border-color: var(--brand-300);
+  background: var(--brand-50);
+}
+
+/* ---------- FAQ ---------- */
+
+.faq {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+}
+
+.faq details {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-6);
+  transition: border-color 200ms ease;
+}
+
+.faq details:hover {
+  border-color: var(--brand-300);
+}
+
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-right: var(--space-8);
+  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  color: var(--brand-900);
+}
+
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  translate: 0 -50%;
+  font-size: 1.6rem;
+  color: var(--brand-500);
+  transition: rotate 300ms ease;
+}
+
+.faq details[open] summary::after {
+  rotate: 45deg;
+}
+
+.faq details[open] summary {
+  margin-bottom: var(--space-3);
+}
+
+/* ---------- Placeholder de foto (até receber a foto profissional) ---------- */
+
+.photo-placeholder {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  max-width: 24rem;
+  background: var(--brand-100);
+  border-radius: 62% 38% 46% 54% / 60% 48% 52% 40%;
+  rotate: -2deg;
+  color: var(--brand-700);
+  font-size: var(--fs-small);
+  text-align: center;
+  padding: var(--space-6);
+  animation: photo-sway 9s ease-in-out infinite alternate;
+  transition: rotate 400ms ease;
+}
+
+.photo-placeholder:hover {
+  rotate: 0deg;
+}
+
+@keyframes photo-sway {
+  from {
+    border-radius: 62% 38% 46% 54% / 60% 48% 52% 40%;
+  }
+  to {
+    border-radius: 45% 55% 60% 40% / 50% 42% 58% 50%;
+  }
+}
+
+/* ---------- Animações de entrada (reversíveis no scroll) ----------
+
+   Definidas DEPOIS dos componentes de propósito: as listas de transição
+   abaixo precisam vencer as dos componentes e por isso reúnem tanto as
+   propriedades de entrada (opacity/translate/scale) quanto as de hover
+   (rotate/scale/box-shadow/cores). Estados iniciais só valem com JS
+   ativo (html.js) — sem JS, tudo fica visível. */
+
+[data-reveal]:not([data-reveal='group']) {
+  transition:
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    translate 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    scale 700ms cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0s),
+    rotate 400ms ease,
+    box-shadow 250ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+html.js [data-reveal]:not([data-reveal='group']):not(.is-visible) {
+  opacity: 0;
+  translate: 0 28px;
+}
+
+html.js [data-reveal='left']:not(.is-visible) {
+  translate: -36px 0;
+}
+
+html.js [data-reveal='right']:not(.is-visible) {
+  translate: 36px 0;
+}
+
+html.js [data-reveal='zoom']:not(.is-visible) {
+  translate: 0 0;
+  scale: 0.9;
+}
+
+/* Grupos: o pai marca a visibilidade, os filhos entram em cascata */
+[data-reveal='group'] > * {
+  transition:
+    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--si, 0) * 80ms),
+    translate 600ms cubic-bezier(0.22, 1, 0.36, 1) calc(var(--si, 0) * 80ms),
+    rotate 250ms ease,
+    scale 250ms ease,
+    box-shadow 250ms ease,
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+html.js [data-reveal='group']:not(.is-visible) > * {
+  opacity: 0;
+  translate: 0 24px;
+}
+
+[data-reveal='group'] > :nth-child(1) { --si: 0; }
+[data-reveal='group'] > :nth-child(2) { --si: 1; }
+[data-reveal='group'] > :nth-child(3) { --si: 2; }
+[data-reveal='group'] > :nth-child(4) { --si: 3; }
+[data-reveal='group'] > :nth-child(5) { --si: 4; }
+[data-reveal='group'] > :nth-child(6) { --si: 5; }
+[data-reveal='group'] > :nth-child(7) { --si: 6; }
+[data-reveal='group'] > :nth-child(8) { --si: 7; }
+
+/* Entrada da dobra inicial no carregamento da página.
+   Anima translate (não transform) para compor com o parallax. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    translate: 0 26px;
+  }
+  to {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+html.js [data-load] {
+  animation: fade-up 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(var(--load-i, 0) * 130ms);
+}
+
+/* ---------- Acessibilidade: sem movimento para quem prefere assim ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  html.js [data-reveal]:not(.is-visible),
+  html.js [data-reveal='group']:not(.is-visible) > * {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+  }
+}

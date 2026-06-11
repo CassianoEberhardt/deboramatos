@@ -1,0 +1,14 @@
+Coloque aqui as imagens do site (fotos da Débora e imagens de fundo).
+
+Recomendações:
+- Formato: AVIF ou WebP (JPG também funciona, mas fica mais pesado)
+- Foto do Hero/Sobre: retrato com pelo menos 1200px de largura
+- Imagens de fundo de seção: pelo menos 1600px de largura, até ~300 KB
+  (o público acessa por 3G/4G — imagens leves são essenciais)
+
+Como usar uma imagem de fundo em uma seção (src/pages/index.astro):
+
+  <section class="section section--media" style="--section-bg: url('/images/sua-foto.jpg')">
+
+O véu claro por cima da imagem é aplicado automaticamente para manter
+a leitura do texto (contraste WCAG AA).

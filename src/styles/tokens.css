@@ -1,0 +1,71 @@
+/* Design tokens — fonte: plano-arquitetura-site.md, Seção 3.
+   Direção visual: "consultório artesanal" — fundo claro quente, terracota
+   como identidade, índigo exclusivo de ações, verde exclusivo de apoio. */
+
+:root {
+  /* Cor — marca (terracota) */
+  --brand-50: #fbf1eb;
+  --brand-100: #f5dfd2;
+  --brand-300: #d99570;
+  --brand-500: #b14e1f;
+  --brand-600: #993300;
+  --brand-700: #7a2900;
+  --brand-900: #401600;
+
+  /* Cor — ação (índigo, exclusivo de botões e links) */
+  --action-100: #e3e3f5;
+  --action-500: #4747b3;
+  --action-600: #333399;
+  --action-700: #2a2a80;
+
+  /* Cor — apoio (verde, exclusivo de ícones e selos) */
+  --support-100: #e2efe2;
+  --support-400: #4f8a4f;
+  --support-600: #336633;
+  --support-700: #285228;
+
+  /* Cor — neutros quentes */
+  --bg: #faf6f2;
+  --surface: #ffffff;
+  --border: #e8dfd7;
+  --text: #33291f;
+  --text-muted: #6b5d52;
+
+  /* Cor — WhatsApp (botão flutuante: verde oficial, por reconhecimento) */
+  --whatsapp: #25d366;
+  --whatsapp-dark: #128c4a;
+
+  /* Tipografia */
+  --font-display: 'Fraunces Variable', Georgia, serif;
+  --font-body: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --fs-h1: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+  --fs-h2: clamp(1.75rem, 3vw + 0.75rem, 2.5rem);
+  --fs-h3: clamp(1.25rem, 2vw + 0.5rem, 1.5rem);
+  --fs-body: 1.0625rem;
+  --fs-small: 0.875rem;
+  --lh-display: 1.15;
+  --lh-body: 1.65;
+
+  /* Espaçamento (base 4px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Raios */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 9999px;
+
+  /* Sombras (tom quente derivado do terracota) */
+  --shadow-sm: 0 1px 3px rgba(64, 22, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(64, 22, 0, 0.1);
+  --shadow-lg: 0 12px 32px rgba(64, 22, 0, 0.14);
+}

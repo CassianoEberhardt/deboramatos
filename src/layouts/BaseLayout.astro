@@ -1,0 +1,110 @@
+---
+import '@fontsource-variable/fraunces';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppWidget from '../components/WhatsAppWidget.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+    <meta name="theme-color" content="#993300" />
+    <!-- Marca JS ativo antes da pintura: estados iniciais das animações só valem com .js -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+    <Header />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Footer />
+    <WhatsAppWidget />
+  </body>
+</html>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Entradas no scroll, reversíveis: a classe é removida quando o elemento
+  // sai da tela, então ao voltar o efeito acontece de novo (e a saída é o
+  // efeito reverso da entrada, via transition).
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if (reduceMotion) {
+    revealEls.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          entry.target.classList.toggle('is-visible', entry.isIntersecting);
+        }
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' },
+    );
+    revealEls.forEach((el) => io.observe(el));
+  }
+
+  // Header ganha sombra ao rolar
+  const header = document.querySelector('.header');
+  const onScrollHeader = () => header?.classList.toggle('header--scrolled', window.scrollY > 8);
+  onScrollHeader();
+  window.addEventListener('scroll', onScrollHeader, { passive: true });
+
+  // Parallax em todas as camadas e dispositivos (decisão do humano,
+  // 10/06/2026): cada [data-parallax] desliza conforme a posição da sua
+  // seção em relação ao centro da tela. Só transform (compositor) e as
+  // medidas são lidas uma vez por seção a cada frame.
+  if (!reduceMotion) {
+    const layers = [...document.querySelectorAll<HTMLElement>('[data-parallax]')].map((el) => ({
+      el,
+      speed: Number.parseFloat(el.dataset.parallax ?? '0.1'),
+      anchor: el.closest('section, footer') ?? el.parentElement,
+    }));
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const mid = window.innerHeight / 2;
+      const rects = new Map<Element, DOMRect>();
+      for (const { el, speed, anchor } of layers) {
+        if (!anchor) continue;
+        let rect = rects.get(anchor);
+        if (!rect) {
+          rect = anchor.getBoundingClientRect();
+          rects.set(anchor, rect);
+        }
+        const offset = (rect.top + rect.height / 2 - mid) * speed;
+        el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+      }
+    };
+
+    const queueUpdate = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    window.addEventListener('scroll', queueUpdate, { passive: true });
+    window.addEventListener('resize', queueUpdate, { passive: true });
+    update();
+  }
+</script>
