@@ -59,6 +59,15 @@ import { INSTAGRAM_URL, WHATSAPP_URL } from '../consts';
     flex-direction: column;
     align-items: flex-end;
     gap: var(--space-3);
+    /* O container é um retângulo invisível do tamanho do popup; sem isto
+       ele rouba os toques do conteúdo embaixo dele (bug no mobile) */
+    pointer-events: none;
+  }
+
+  .wa-widget__popup,
+  .wa-widget__fab,
+  .wa-widget__instagram {
+    pointer-events: auto;
   }
 
   /* Balão de conversa */

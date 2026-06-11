@@ -3,18 +3,19 @@ import { WHATSAPP_URL } from '../consts';
 
 // M1: navegação por âncoras sempre visível (rolagem horizontal no mobile).
 // O menu hambúrguer acessível entra no Marco 2.
+// Âncoras com "/" na frente para funcionarem também fora da home (ex.: /privacidade).
 const links = [
-  { href: '#sobre', label: 'Sobre' },
-  { href: '#tcc', label: 'TCC' },
-  { href: '#sessoes', label: 'Sessões' },
-  { href: '#para-quem', label: 'Para quem' },
-  { href: '#faq', label: 'Dúvidas' },
+  { href: '/#sobre', label: 'Sobre' },
+  { href: '/#tcc', label: 'TCC' },
+  { href: '/#sessoes', label: 'Sessões' },
+  { href: '/#para-quem', label: 'Para quem' },
+  { href: '/#faq', label: 'Dúvidas' },
 ];
 ---
 
 <header class="header">
   <div class="container header__inner">
-    <a class="header__logo" href="#inicio">
+    <a class="header__logo" href="/#inicio">
       Débora Matos <span>Psicóloga</span>
     </a>
     <nav aria-label="Navegação principal">
@@ -86,6 +87,8 @@ const links = [
 
   .header__nav a {
     position: relative;
+    display: inline-block;
+    padding: var(--space-2) var(--space-1); /* área de toque maior no celular */
     color: var(--text);
     text-decoration: none;
     font-size: var(--fs-small);
@@ -93,12 +96,14 @@ const links = [
     transition: color 200ms ease;
   }
 
+  /* Sublinhado dentro da caixa do link (bottom >= 0): fora dela ele gera
+     overflow na lista rolável e faz aparecer barras de rolagem no hover */
   .header__nav a::after {
     content: '';
     position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 100%;
+    left: var(--space-1);
+    right: var(--space-1);
+    bottom: 2px;
     height: 2px;
     border-radius: 1px;
     background: var(--brand-500);
@@ -126,6 +131,18 @@ const links = [
     nav {
       order: 3;
       width: 100%;
+    }
+  }
+
+  /* Desktop: menu centralizado entre o logo e o CTA, sem rolagem */
+  @media (min-width: 768px) {
+    nav {
+      flex: 1;
+    }
+
+    .header__nav {
+      overflow: visible;
+      justify-content: center;
     }
   }
 </style>
